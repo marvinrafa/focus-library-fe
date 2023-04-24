@@ -1,14 +1,13 @@
 import { DataGrid } from '@mui/x-data-grid';
 import { Box, Drawer, IconButton, OutlinedInput, Typography, debounce } from '@mui/material';
 import { useEffect, useMemo, useState } from 'react';
-import { getUsers } from '../../services/adminService';
+import { getBooks } from '../../services/adminService';
 import { AddCircle, Edit, FilterAlt, Search } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-import EditUser from '../../components/editUser';
 import GlobalFilter from '../../components/filter';
+import EditBook from '../../components/editBook';
 
-export default function Users() {
-    const [users, setUsers] = useState([]);
+export default function Books() {
+    const [books, setBooks] = useState([]);
     const [status, setStatus] = useState(0);
     const [responseInfo, setResponseInfo] = useState({
         total: 0,
@@ -25,30 +24,25 @@ export default function Users() {
 
     const debouncedSearchTextChange = useMemo(() => debounce(setSearchText, 250), []);
 
-    const navigate = useNavigate();
-
     useEffect(() => {
         refreshData();
     }, [requestParams]);
 
     const refreshData = () => {
         setStatus(0);
-        getUsers(setUsers, requestParams, setResponseInfo, setStatus);
+        getBooks(setBooks, requestParams, setResponseInfo, setStatus);
     };
 
     useEffect(() => {
         setRequestParams((r) => ({
             ...r,
-            filters: [...(r.filters?.filter((f) => f.name !== 'first_name') || []), { name: 'first_name', value: searchText }]
+            filters: [...(r.filters?.filter((f) => f.name !== 'title') || []), { name: 'title', value: searchText }]
         }));
     }, [searchText]);
 
     const columns = [
         { field: 'id', headerName: 'ID', flex: 1, sortable: false },
-        { field: 'first_name', headerName: 'First name', flex: 1, sortable: false },
-        { field: 'last_name', headerName: 'Last name', flex: 1, sortable: false },
-        { field: 'email', headerName: 'Email', flex: 1, sortable: false },
-        { field: 'role', headerName: 'Role', flex: 1, sortable: false },
+        { field: 'title', headerName: 'Title', flex: 1, sortable: false },
         {
             field: 'action',
             headerName: 'Action',
@@ -65,7 +59,7 @@ export default function Users() {
     return (
         <Box>
             <Box display="flex" justifyContent="space-between">
-                <Typography variant="h4">Students</Typography>
+                <Typography variant="h4">Books</Typography>
                 <Box display="flex">
                     <IconButton color="primary" size="large" onClick={() => setOpenAdd(true)}>
                         <AddCircle fontSize="25px" />
@@ -100,14 +94,12 @@ export default function Users() {
                     // MUI STARTS IN 0
                     if (model.page !== requestParams.page - 1) setRequestParams((c) => ({ ...c, page: model.page + 1 }));
                 }}
-                rows={users}
+                rows={books}
                 columns={columns}
                 pageSize={10}
                 rowCount={responseInfo.total}
                 loading={status === 0}
-                onCellClick={(params) => {
-                    if (params.field !== 'action') navigate(`/admin/users/${params.id}`);
-                }}
+                onCellClick={(params) => setEditedId(params.id)}
             />
             <Drawer
                 PaperProps={{ style: { width: '500px' } }}
@@ -118,7 +110,7 @@ export default function Users() {
                     setEditedId(null);
                 }}
             >
-                <EditUser
+                <EditBook
                     onClose={() => {
                         setOpenAdd(false);
                         setEditedId(null);

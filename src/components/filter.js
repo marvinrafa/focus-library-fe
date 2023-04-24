@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import { Box, TextField, MenuItem, Typography, Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
@@ -6,6 +6,7 @@ const GlobalFilter = ({ currentFilters, setFilters, availableFilters, onClose })
     const theme = useTheme();
     const [newFilters, setNewFilters] = useState(currentFilters);
 
+    console.log('avfilters', availableFilters);
     useEffect(() => {
         setNewFilters(currentFilters || []);
     }, [currentFilters]);
@@ -18,10 +19,10 @@ const GlobalFilter = ({ currentFilters, setFilters, availableFilters, onClose })
             {availableFilters.map((f, index) => {
                 if (f.type === 'text')
                     return (
-                        <Box mt="28px" mb="24px">
+                        <Box>
                             <TextField
                                 key={`text-field-${index}`}
-                                sx={{ mt: 2 }}
+                                sx={{ my: 2 }}
                                 fullWidth
                                 label={f.label}
                                 value={newFilters.find((item) => f.name === item.name)?.value || ''}
@@ -32,10 +33,10 @@ const GlobalFilter = ({ currentFilters, setFilters, availableFilters, onClose })
                             />
                         </Box>
                     );
-                else if (f.type === 'select') {
+                return (
                     <TextField
                         key={`text-field-select${index}`}
-                        sx={{ mt: 2 }}
+                        sx={{ my: 2 }}
                         label={f.label}
                         fullWidth
                         select
@@ -50,9 +51,8 @@ const GlobalFilter = ({ currentFilters, setFilters, availableFilters, onClose })
                                 {f.values[key]}
                             </MenuItem>
                         ))}
-                    </TextField>;
-                }
-                return <></>;
+                    </TextField>
+                );
             })}
             <Box mt="65px" mb="37px" display="flex" justifyContent="space-between">
                 <Button onClick={() => setNewFilters([])} variant="outlined">

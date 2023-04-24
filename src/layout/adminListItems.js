@@ -4,6 +4,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import PeopleIcon from '@mui/icons-material/People';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { MenuBook } from '@mui/icons-material';
 
 export const AdminListItems = () => {
     const { pathname } = useLocation();
@@ -16,6 +17,12 @@ export const AdminListItems = () => {
                     <PeopleIcon />
                 </ListItemIcon>
                 <ListItemText primary="Users" />
+            </ListItemButton>
+            <ListItemButton selected={pathname === '/admin/books'} onClick={() => navigate('/admin/books')}>
+                <ListItemIcon>
+                    <MenuBook />
+                </ListItemIcon>
+                <ListItemText primary="Books" />
             </ListItemButton>
         </React.Fragment>
     );
