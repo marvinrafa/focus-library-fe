@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, TextField, MenuItem, Typography, Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
@@ -6,7 +6,6 @@ const GlobalFilter = ({ currentFilters, setFilters, availableFilters, onClose })
     const theme = useTheme();
     const [newFilters, setNewFilters] = useState(currentFilters);
 
-    console.log('avfilters', availableFilters);
     useEffect(() => {
         setNewFilters(currentFilters || []);
     }, [currentFilters]);
@@ -19,19 +18,17 @@ const GlobalFilter = ({ currentFilters, setFilters, availableFilters, onClose })
             {availableFilters.map((f, index) => {
                 if (f.type === 'text')
                     return (
-                        <Box>
-                            <TextField
-                                key={`text-field-${index}`}
-                                sx={{ my: 2 }}
-                                fullWidth
-                                label={f.label}
-                                value={newFilters.find((item) => f.name === item.name)?.value || ''}
-                                onChange={(e) => {
-                                    const removedKeyFilter = newFilters.filter((item) => f.name !== item.name);
-                                    setNewFilters([...removedKeyFilter, { name: f.name, value: e.target.value }]);
-                                }}
-                            />
-                        </Box>
+                        <TextField
+                            key={`text-field-${index}`}
+                            sx={{ my: 2 }}
+                            fullWidth
+                            label={f.label}
+                            value={newFilters.find((item) => f.name === item.name)?.value || ''}
+                            onChange={(e) => {
+                                const removedKeyFilter = newFilters.filter((item) => f.name !== item.name);
+                                setNewFilters([...removedKeyFilter, { name: f.name, value: e.target.value }]);
+                            }}
+                        />
                     );
                 return (
                     <TextField
@@ -40,7 +37,7 @@ const GlobalFilter = ({ currentFilters, setFilters, availableFilters, onClose })
                         label={f.label}
                         fullWidth
                         select
-                        value={newFilters.find((item) => f.name === item.name)?.value || null}
+                        value={newFilters.find((item) => f.name === item.name)?.value || ''}
                         onChange={(e) => {
                             const removedKeyFilter = newFilters.filter((item) => f.name !== item.name);
                             setNewFilters([...removedKeyFilter, { name: f.name, value: e.target.value }]);

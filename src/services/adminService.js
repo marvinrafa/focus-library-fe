@@ -73,7 +73,7 @@ export const getBook = async (id, setBook, setStatus) => {
 
         setStatus(1);
     } catch (err) {
-        console.error(`Error getting user detail ${err}`);
+        console.error(`Error getting book detail ${err}`);
     }
 };
 

@@ -17,7 +17,6 @@ export default function SignIn() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('state', ContextState);
         if (isLoggedIn && ContextState.user.role === 'librarian') {
             navigate('/admin/users', { replace: true });
         }

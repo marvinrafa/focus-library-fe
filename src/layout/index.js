@@ -95,7 +95,7 @@ function DashboardContent({ type = 'admin' }) {
                             <MenuIcon />
                         </IconButton>
                         <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-                            Librarian dashboard
+                            {type === 'admin' ? 'Librarian dashboard' : 'Student Dashboard'}
                         </Typography>
                     </Toolbar>
                 </AppBar>
@@ -140,6 +140,6 @@ function DashboardContent({ type = 'admin' }) {
     );
 }
 
-export default function Dashboard() {
-    return <DashboardContent />;
+export default function Dashboard({ type }) {
+    return <DashboardContent type={type} />;
 }

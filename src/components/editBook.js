@@ -10,8 +10,8 @@ const EditBook = ({ id = null, onClose, refresh }) => {
     const [book, setBook] = useState({
         id: '',
         title: '',
-        author_id: null,
-        genre_id: null,
+        author_id: '',
+        genre_id: '',
         published: true,
         year: 2023,
         base_stock: 1

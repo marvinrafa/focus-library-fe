@@ -36,7 +36,7 @@ export default function Books() {
     useEffect(() => {
         setRequestParams((r) => ({
             ...r,
-            filters: [...(r.filters?.filter((f) => f.name !== 'title') || []), { name: 'title', value: searchText }]
+            filters: [...(r.filters?.filter((f) => f.name !== 'search') || []), { name: 'search', value: searchText }]
         }));
     }, [searchText]);
 
