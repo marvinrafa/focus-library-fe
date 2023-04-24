@@ -65,7 +65,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-function DashboardContent({ type = 'librarian' }) {
+function DashboardContent({ type = 'admin' }) {
     const [open, setOpen] = useState(true);
     const { logout } = useContext(AuthContext);
     const toggleDrawer = () => {

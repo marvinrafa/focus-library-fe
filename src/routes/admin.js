@@ -1,13 +1,7 @@
-import { lazy } from 'react';
-
-// import AuthGuard from 'utils/route-guard/AuthGuard';
 import Layout from '../layout';
 import AdminGuard from '../utils/route-guard/AdminGuard';
-
-// sample page routing
-const UsersManagemet = lazy(() => import('../pages/admin/users'));
-
-// ==============================|| MAIN ROUTING ||============================== //
+import UserDetails from '../pages/admin/userDetail';
+import UsersManagemet from '../pages/admin/users';
 
 const MainRoutes = {
     path: '/admin',
@@ -24,6 +18,10 @@ const MainRoutes = {
         {
             path: '/admin/users',
             element: <UsersManagemet />
+        },
+        {
+            path: '/admin/users/:id',
+            element: <UserDetails />
         }
     ]
 };

@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <ContextProvider>
         <ThemeProvider theme={theme}>
-            <SnackbarProvider>
+            <SnackbarProvider maxSnack={1} preventDuplicate>
                 <App />
             </SnackbarProvider>
         </ThemeProvider>

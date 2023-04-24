@@ -1,13 +1,6 @@
-import { lazy } from 'react';
-
-// import AuthGuard from 'utils/route-guard/AuthGuard';
 import Layout from '../layout';
 import UserGuard from '../utils/route-guard/UserGuard';
-
-// sample page routing
-const Books = lazy(() => import('../pages/users/books'));
-
-// ==============================|| MAIN ROUTING ||============================== //
+import Books from '../pages/users/books';
 
 const MainRoutes = {
     path: '/',
