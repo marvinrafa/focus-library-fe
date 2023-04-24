@@ -28,7 +28,8 @@ export default function Users() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        refreshData();
+        setStatus(0);
+        getUsers(setUsers, requestParams, setResponseInfo, setStatus);
     }, [requestParams]);
 
     const refreshData = () => {
@@ -37,10 +38,11 @@ export default function Users() {
     };
 
     useEffect(() => {
-        setRequestParams((r) => ({
-            ...r,
-            filters: [...(r.filters?.filter((f) => f.name !== 'first_name') || []), { name: 'first_name', value: searchText }]
-        }));
+        if (searchText !== '')
+            setRequestParams((r) => ({
+                ...r,
+                filters: [...(r.filters?.filter((f) => f.name !== 'first_name') || []), { name: 'first_name', value: searchText }]
+            }));
     }, [searchText]);
 
     const columns = [
@@ -77,7 +79,14 @@ export default function Users() {
             </Box>
             <OutlinedInput
                 startAdornment={<Search stroke={1.5} size="1rem" />}
-                onChange={(e) => debouncedSearchTextChange(e.target.value)}
+                onChange={(e) => {
+                    if (e.target.value === '')
+                        setRequestParams({
+                            filters: [],
+                            page: 1
+                        });
+                    debouncedSearchTextChange(e.target.value);
+                }}
                 size="small"
                 placeholder="Search..."
             />

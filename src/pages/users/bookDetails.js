@@ -15,7 +15,7 @@ export default function BookDetail() {
     useEffect(() => {
         setStatus(0);
         getBook(id, setBook, setStatus);
-    }, []);
+    }, [id]);
 
     const handleRequestCheckout = async () => {
         const response = await requestBookCheckout(id);

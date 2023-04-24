@@ -15,13 +15,9 @@ export default function CheckoutHistory() {
     });
 
     useEffect(() => {
-        refreshData();
-    }, [requestParams]);
-
-    const refreshData = () => {
         setStatus(0);
         getCheckoutHistory(setCheckouts, requestParams, setResponseInfo, setStatus);
-    };
+    }, [requestParams]);
 
     const columns = [
         { field: 'id', headerName: 'ID', flex: 1, sortable: false, hidden: true },

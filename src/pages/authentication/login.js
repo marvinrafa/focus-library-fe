@@ -20,7 +20,7 @@ export default function SignIn() {
         if (isLoggedIn && ContextState.user.role === 'librarian') {
             navigate('/admin/users', { replace: true });
         }
-    }, [ContextState]);
+    }, [ContextState, isLoggedIn, navigate]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();

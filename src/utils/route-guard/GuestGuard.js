@@ -33,7 +33,7 @@ const GuestGuard = ({ children }) => {
         if (isLoggedIn && user.role === 'student') {
             navigate('/books', { replace: true });
         }
-    }, [isLoggedIn, navigate, user]);
+    }, [isLoggedIn, navigate, user, sessionToken, setUser]);
 
     if (!isLoggedIn) return children;
 };

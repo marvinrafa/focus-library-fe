@@ -27,7 +27,7 @@ const UserGuard = ({ children }) => {
             };
             init();
         }
-    }, [isLoggedIn, navigate, user]);
+    }, [isLoggedIn, navigate, user, sessionToken, setUser]);
 
     if (isLoggedIn && user.role !== 'student') navigate('/admin', { replace: true });
     if (isLoggedIn && user.role === 'student') return children;

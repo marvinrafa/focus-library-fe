@@ -3,7 +3,6 @@ import {
     Button,
     Chip,
     CircularProgress,
-    Dialog,
     Divider,
     Paper,
     Table,
@@ -30,7 +29,7 @@ export default function UserDetails() {
     useEffect(() => {
         setStatus(0);
         getUser(id, setUser, setStatus);
-    }, []);
+    }, [id]);
 
     const handleFinishCheckout = async (id, index) => {
         const response = await finishBookCheckout(id);

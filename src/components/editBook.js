@@ -22,7 +22,7 @@ const EditBook = ({ id = null, onClose, refresh }) => {
         if (id) getBook(id, setBook, setStatus);
         getAuthorsList(setAuthors);
         getGenresList(setGenres);
-    }, []);
+    }, [id]);
 
     const handleSave = async () => {
         if (id) {

@@ -24,19 +24,16 @@ export default function Books() {
     const debouncedSearchTextChange = useMemo(() => debounce(setSearchText, 250), []);
 
     useEffect(() => {
-        refreshData();
-    }, [requestParams]);
-
-    const refreshData = () => {
         setStatus(0);
         getBooks(setBooks, requestParams, setResponseInfo, setStatus);
-    };
+    }, [requestParams]);
 
     useEffect(() => {
-        setRequestParams((r) => ({
-            ...r,
-            filters: [...(r.filters?.filter((f) => f.name !== 'search') || []), { name: 'search', value: searchText }]
-        }));
+        if (searchText !== '')
+            setRequestParams((r) => ({
+                ...r,
+                filters: [...(r.filters?.filter((f) => f.name !== 'search') || []), { name: 'search', value: searchText }]
+            }));
     }, [searchText]);
 
     const columns = [
@@ -57,7 +54,14 @@ export default function Books() {
             </Box>
             <OutlinedInput
                 startAdornment={<Search stroke={1.5} size="1rem" />}
-                onChange={(e) => debouncedSearchTextChange(e.target.value)}
+                onChange={(e) => {
+                    if (e.target.value === '')
+                        setRequestParams({
+                            filters: [],
+                            page: 1
+                        });
+                    debouncedSearchTextChange(e.target.value);
+                }}
                 size="small"
                 placeholder="Search..."
             />

@@ -16,7 +16,7 @@ const EditUser = ({ id = null, onClose, refresh }) => {
 
     useEffect(() => {
         if (id) getUser(id, setUser, setStatus);
-    }, []);
+    }, [id]);
 
     const handleSave = async () => {
         if (id) {

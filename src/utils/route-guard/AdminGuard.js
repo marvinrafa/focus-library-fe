@@ -27,7 +27,7 @@ const AdminGuard = ({ children }) => {
             };
             init();
         }
-    }, [isLoggedIn, navigate, user]);
+    }, [isLoggedIn, navigate, user, sessionToken, setUser]);
 
     if (isLoggedIn && user.role === 'librarian') return children;
     if (isLoggedIn && user.role !== 'librarian') navigate('/', { replace: true });
